@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My YouTube Gallery</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Sarabun:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Sarabun', sans-serif; background-color: #f3f4f6; }
+    </style>
+</head>
+<body class="text-gray-800 antialiased min-h-screen bg-gray-100 pb-12">
+    
+    <!-- Navbar & Search -->
+    <header class="sticky top-0 left-0 w-full bg-white/90 backdrop-blur-md shadow-sm z-50 py-3 px-4 border-b border-gray-200">
+        <div class="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-3">
+            <h1 class="text-xl font-bold text-red-600 w-full md:w-auto text-center md:text-left">YouTube Gallery</h1>
+            
+            <div class="relative w-full max-w-xl mx-auto flex-grow">
+                <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                    <svg class="h-5 w-5 text-gray-400" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z" clip-rule="evenodd" /></svg>
+                </div>
+                <input type="text" id="searchInput" class="block w-full pl-10 pr-3 py-2.5 border border-gray-300 rounded-full leading-5 bg-white placeholder-gray-500 focus:outline-none focus:ring-1 focus:ring-red-500 sm:text-sm" placeholder="ค้นหาจากชื่อวิดีโอ..." onkeyup="filterVideos()">
+            </div>
+
+            <div class="hidden md:block text-sm text-gray-500 font-medium whitespace-nowrap">พบ <span id="videoCount" class="text-red-600 font-bold">10</span> วิดีโอ</div>
+        </div>
+    </header>
+
+    <!-- Gallery Container -->
+    <div class="pt-8 px-4 max-w-7xl mx-auto">
+        <div id="no-results" class="hidden text-center py-12"><p class="text-gray-500 text-lg">ไม่พบวิดีโอที่ตรงกับการค้นหา</p></div>
+        
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+
+            <!-- Video Card -->
+            <div class="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden flex flex-col hover:shadow-lg transition-shadow duration-300 video-card" data-title="ตอนที่ 1: กระบวนการพื้นฐานสำหรับการผลิตสื่อวิดีโอ">
+                <div class="p-4 border-b border-gray-50 flex-grow">
+                    <h3 class="font-semibold text-gray-800 text-sm md:text-base line-clamp-2 leading-snug" title="ตอนที่ 1: กระบวนการพื้นฐานสำหรับการผลิตสื่อวิดีโอ">ตอนที่ 1: กระบวนการพื้นฐานสำหรับการผลิตสื่อวิดีโอ</h3>
+                </div>
+                <div class="relative w-full aspect-video bg-gray-200">
+                    <iframe class="absolute top-0 left-0 w-full h-full" src="https://www.youtube.com/embed/6eG5pnE0Imc" title="ตอนที่ 1: กระบวนการพื้นฐานสำหรับการผลิตสื่อวิดีโอ" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen loading="lazy"></iframe>
+                </div>
+                <div class="flex justify-between items-center p-3 bg-white border-t border-gray-100 gap-2">
+                    <button class="flex-1 bg-gray-50 hover:bg-gray-100 text-gray-700 text-sm font-medium py-2 px-3 rounded-lg transition-colors border border-gray-200 flex justify-center items-center gap-1.5" onclick="copyYtLink(this, '6eG5pnE0Imc')">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z" /></svg> คัดลอกลิงก์
+                    </button>
+                    <button class="flex-1 bg-red-50 hover:bg-red-100 text-red-600 text-sm font-medium py-2 px-3 rounded-lg transition-colors border border-red-100 flex justify-center items-center gap-1.5" onclick="window.open('https://ssyoutube.com/watch?v=6eG5pnE0Imc', '_blank')">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" /></svg> ดาวน์โหลด
+                    </button>
+                </div>
+            </div>
+            <!-- Video Card -->
+            <div class="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden flex flex-col hover:shadow-lg transition-shadow duration-300 video-card" data-title="ตอนที่ 2: การสร้างแนวคิดและสคริปต์">
+                <div class="p-4 border-b border-gray-50 flex-grow">
+                    <h3 class="font-semibold text-gray-800 text-sm md:text-base line-clamp-2 leading-snug" title="ตอนที่ 2: การสร้างแนวคิดและสคริปต์">ตอนที่ 2: การสร้างแนวคิดและสคริปต์</h3>
+                </div>
+                <div class="relative w-full aspect-video bg-gray-200">
+                    <iframe class="absolute top-0 left-0 w-full h-full" src="https://www.youtube.com/embed/-7HMvJhffx4" title="ตอนที่ 2: การสร้างแนวคิดและสคริปต์" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen loading="lazy"></iframe>
+                </div>
+                <div class="flex justify-between items-center p-3 bg-white border-t border-gray-100 gap-2">
+                    <button class="flex-1 bg-gray-50 hover:bg-gray-100 text-gray-700 text-sm font-medium py-2 px-3 rounded-lg transition-colors border border-gray-200 flex justify-center items-center gap-1.5" onclick="copyYtLink(this, '-7HMvJhffx4')">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z" /></svg> คัดลอกลิงก์
+                    </button>
+                    <button class="flex-1 bg-red-50 hover:bg-red-100 text-red-600 text-sm font-medium py-2 px-3 rounded-lg transition-colors border border-red-100 flex justify-center items-center gap-1.5" onclick="window.open('https://ssyoutube.com/watch?v=-7HMvJhffx4', '_blank')">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" /></svg> ดาวน์โหลด
+                    </button>
+                </div>
+            </div>
+            <!-- Video Card -->
+            <div class="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden flex flex-col hover:shadow-lg transition-shadow duration-300 video-card" data-title="ตอนที่ 3: การสร้าง storyboard">
+                <div class="p-4 border-b border-gray-50 flex-grow">
+                    <h3 class="font-semibold text-gray-800 text-sm md:text-base line-clamp-2 leading-snug" title="ตอนที่ 3: การสร้าง Storyboard">ตอนที่ 3: การสร้าง Storyboard</h3>
+                </div>
+                <div class="relative w-full aspect-video bg-gray-200">
+                    <iframe class="absolute top-0 left-0 w-full h-full" src="https://www.youtube.com/embed/R7QbUtyOOWM" title="ตอนที่ 3: การสร้าง Storyboard" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen loading="lazy"></iframe>
+                </div>
+                <div class="flex justify-between items-center p-3 bg-white border-t border-gray-100 gap-2">
+                    <button class="flex-1 bg-gray-50 hover:bg-gray-100 text-gray-700 text-sm font-medium py-2 px-3 rounded-lg transition-colors border border-gray-200 flex justify-center items-center gap-1.5" onclick="copyYtLink(this, 'R7QbUtyOOWM')">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z" /></svg> คัดลอกลิงก์
+                    </button>
+                    <button class="flex-1 bg-red-50 hover:bg-red-100 text-red-600 text-sm font-medium py-2 px-3 rounded-lg transition-colors border border-red-100 flex justify-center items-center gap-1.5" onclick="window.open('https://ssyoutube.com/watch?v=R7QbUtyOOWM', '_blank')">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" /></svg> ดาวน์โหลด
+                    </button>
+                </div>
+            </div>
+            <!-- Video Card -->
+            <div class="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden flex flex-col hover:shadow-lg transition-shadow duration-300 video-card" data-title="ตอนที่ 4: การสร้างภาพนิ่งและภาพเคลื่อนไหว">
+                <div class="p-4 border-b border-gray-50 flex-grow">
+                    <h3 class="font-semibold text-gray-800 text-sm md:text-base line-clamp-2 leading-snug" title="ตอนที่ 4: การสร้างภาพนิ่งและภาพเคลื่อนไหว">ตอนที่ 4: การสร้างภาพนิ่งและภาพเคลื่อนไหว</h3>
+                </div>
+                <div class="relative w-full aspect-video bg-gray-200">
+                    <iframe class="absolute top-0 left-0 w-full h-full" src="https://www.youtube.com/embed/bUQFsAfy2oo" title="ตอนที่ 4: การสร้างภาพนิ่งและภาพเคลื่อนไหว" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen loading="lazy"></iframe>
+                </div>
+                <div class="flex justify-between items-center p-3 bg-white border-t border-gray-100 gap-2">
+                    <button class="flex-1 bg-gray-50 hover:bg-gray-100 text-gray-700 text-sm font-medium py-2 px-3 rounded-lg transition-colors border border-gray-200 flex justify-center items-center gap-1.5" onclick="copyYtLink(this, 'bUQFsAfy2oo')">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z" /></svg> คัดลอกลิงก์
+                    </button>
+                    <button class="flex-1 bg-red-50 hover:bg-red-100 text-red-600 text-sm font-medium py-2 px-3 rounded-lg transition-colors border border-red-100 flex justify-center items-center gap-1.5" onclick="window.open('https://ssyoutube.com/watch?v=bUQFsAfy2oo', '_blank')">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" /></svg> ดาวน์โหลด
+                    </button>
+                </div>
+            </div>
+            <!-- Video Card -->
+            <div class="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden flex flex-col hover:shadow-lg transition-shadow duration-300 video-card" data-title="ตอนที่ 5: การสร้างเสียง (คลิปที่ 1/3)">
+                <div class="p-4 border-b border-gray-50 flex-grow">
+                    <h3 class="font-semibold text-gray-800 text-sm md:text-base line-clamp-2 leading-snug" title="ตอนที่ 5: การสร้างเสียง (คลิปที่ 1/3)">ตอนที่ 5: การสร้างเสียง (คลิปที่ 1/3)</h3>
+                </div>
+                <div class="relative w-full aspect-video bg-gray-200">
+                    <iframe class="absolute top-0 left-0 w-full h-full" src="https://www.youtube.com/embed/9DR97Ijo30c" title="ตอนที่ 5: การสร้างเสียง (คลิปที่ 1/3)" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen loading="lazy"></iframe>
+                </div>
+                <div class="flex justify-between items-center p-3 bg-white border-t border-gray-100 gap-2">
+                    <button class="flex-1 bg-gray-50 hover:bg-gray-100 text-gray-700 text-sm font-medium py-2 px-3 rounded-lg transition-colors border border-gray-200 flex justify-center items-center gap-1.5" onclick="copyYtLink(this, '9DR97Ijo30c')">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z" /></svg> คัดลอกลิงก์
+                    </button>
+                    <button class="flex-1 bg-red-50 hover:bg-red-100 text-red-600 text-sm font-medium py-2 px-3 rounded-lg transition-colors border border-red-100 flex justify-center items-center gap-1.5" onclick="window.open('https://ssyoutube.com/watch?v=9DR97Ijo30c', '_blank')">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" /></svg> ดาวน์โหลด
+                    </button>
+                </div>
+            </div>
+            <!-- Video Card -->
+            <div class="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden flex flex-col hover:shadow-lg transition-shadow duration-300 video-card" data-title="ตอนที่ 5: การสร้างเสียง (คลิปที่ 2/3)">
+                <div class="p-4 border-b border-gray-50 flex-grow">
+                    <h3 class="font-semibold text-gray-800 text-sm md:text-base line-clamp-2 leading-snug" title="ตอนที่ 5: การสร้างเสียง (คลิปที่ 2/3)">ตอนที่ 5: การสร้างเสียง (คลิปที่ 2/3)</h3>
+                </div>
+                <div class="relative w-full aspect-video bg-gray-200">
+                    <iframe class="absolute top-0 left-0 w-full h-full" src="https://www.youtube.com/embed/L0y0s3Okfoo" title="ตอนที่ 5: การสร้างเสียง (คลิปที่ 2/3)" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen loading="lazy"></iframe>
+                </div>
+                <div class="flex justify-between items-center p-3 bg-white border-t border-gray-100 gap-2">
+                    <button class="flex-1 bg-gray-50 hover:bg-gray-100 text-gray-700 text-sm font-medium py-2 px-3 rounded-lg transition-colors border border-gray-200 flex justify-center items-center gap-1.5" onclick="copyYtLink(this, 'L0y0s3Okfoo')">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z" /></svg> คัดลอกลิงก์
+                    </button>
+                    <button class="flex-1 bg-red-50 hover:bg-red-100 text-red-600 text-sm font-medium py-2 px-3 rounded-lg transition-colors border border-red-100 flex justify-center items-center gap-1.5" onclick="window.open('https://ssyoutube.com/watch?v=L0y0s3Okfoo', '_blank')">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" /></svg> ดาวน์โหลด
+                    </button>
+                </div>
+            </div>
+            <!-- Video Card -->
+            <div class="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden flex flex-col hover:shadow-lg transition-shadow duration-300 video-card" data-title="ตอนที่ 5: การสร้างเสียง (คลิปที่ 3/3)">
+                <div class="p-4 border-b border-gray-50 flex-grow">
+                    <h3 class="font-semibold text-gray-800 text-sm md:text-base line-clamp-2 leading-snug" title="ตอนที่ 5: การสร้างเสียง (คลิปที่ 3/3)">ตอนที่ 5: การสร้างเสียง (คลิปที่ 3/3)</h3>
+                </div>
+                <div class="relative w-full aspect-video bg-gray-200">
+                    <iframe class="absolute top-0 left-0 w-full h-full" src="https://www.youtube.com/embed/hnZzGNMomA8" title="ตอนที่ 5: การสร้างเสียง (คลิปที่ 3/3)" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen loading="lazy"></iframe>
+                </div>
+                <div class="flex justify-between items-center p-3 bg-white border-t border-gray-100 gap-2">
+                    <button class="flex-1 bg-gray-50 hover:bg-gray-100 text-gray-700 text-sm font-medium py-2 px-3 rounded-lg transition-colors border border-gray-200 flex justify-center items-center gap-1.5" onclick="copyYtLink(this, 'hnZzGNMomA8')">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z" /></svg> คัดลอกลิงก์
+                    </button>
+                    <button class="flex-1 bg-red-50 hover:bg-red-100 text-red-600 text-sm font-medium py-2 px-3 rounded-lg transition-colors border border-red-100 flex justify-center items-center gap-1.5" onclick="window.open('https://ssyoutube.com/watch?v=hnZzGNMomA8', '_blank')">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" /></svg> ดาวน์โหลด
+                    </button>
+                </div>
+            </div>
+            <!-- Video Card -->
+            <div class="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden flex flex-col hover:shadow-lg transition-shadow duration-300 video-card" data-title="ตอนที่ 6: การตัดต่อและประกอบร่าง (คลิปที่ 1/3)">
+                <div class="p-4 border-b border-gray-50 flex-grow">
+                    <h3 class="font-semibold text-gray-800 text-sm md:text-base line-clamp-2 leading-snug" title="ตอนที่ 6: การตัดต่อและประกอบร่าง (คลิปที่ 1/3)">ตอนที่ 6: การตัดต่อและประกอบร่าง (คลิปที่ 1/3)</h3>
+                </div>
+                <div class="relative w-full aspect-video bg-gray-200">
+                    <iframe class="absolute top-0 left-0 w-full h-full" src="https://www.youtube.com/embed/UMj0FcM0WE0" title="ตอนที่ 6: การตัดต่อและประกอบร่าง (คลิปที่ 1/3)" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen loading="lazy"></iframe>
+                </div>
+                <div class="flex justify-between items-center p-3 bg-white border-t border-gray-100 gap-2">
+                    <button class="flex-1 bg-gray-50 hover:bg-gray-100 text-gray-700 text-sm font-medium py-2 px-3 rounded-lg transition-colors border border-gray-200 flex justify-center items-center gap-1.5" onclick="copyYtLink(this, 'UMj0FcM0WE0')">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z" /></svg> คัดลอกลิงก์
+                    </button>
+                    <button class="flex-1 bg-red-50 hover:bg-red-100 text-red-600 text-sm font-medium py-2 px-3 rounded-lg transition-colors border border-red-100 flex justify-center items-center gap-1.5" onclick="window.open('https://ssyoutube.com/watch?v=UMj0FcM0WE0', '_blank')">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" /></svg> ดาวน์โหลด
+                    </button>
+                </div>
+            </div>
+            <!-- Video Card -->
+            <div class="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden flex flex-col hover:shadow-lg transition-shadow duration-300 video-card" data-title="ตอนที่ 6: การตัดต่อและประกอบร่าง (คลิปที่ 2/3)">
+                <div class="p-4 border-b border-gray-50 flex-grow">
+                    <h3 class="font-semibold text-gray-800 text-sm md:text-base line-clamp-2 leading-snug" title="ตอนที่ 6: การตัดต่อและประกอบร่าง (คลิปที่ 2/3)">ตอนที่ 6: การตัดต่อและประกอบร่าง (คลิปที่ 2/3)</h3>
+                </div>
+                <div class="relative w-full aspect-video bg-gray-200">
+                    <iframe class="absolute top-0 left-0 w-full h-full" src="https://www.youtube.com/embed/qOfZADfu5hs" title="ตอนที่ 6: การตัดต่อและประกอบร่าง (คลิปที่ 2/3)" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen loading="lazy"></iframe>
+                </div>
+                <div class="flex justify-between items-center p-3 bg-white border-t border-gray-100 gap-2">
+                    <button class="flex-1 bg-gray-50 hover:bg-gray-100 text-gray-700 text-sm font-medium py-2 px-3 rounded-lg transition-colors border border-gray-200 flex justify-center items-center gap-1.5" onclick="copyYtLink(this, 'qOfZADfu5hs')">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z" /></svg> คัดลอกลิงก์
+                    </button>
+                    <button class="flex-1 bg-red-50 hover:bg-red-100 text-red-600 text-sm font-medium py-2 px-3 rounded-lg transition-colors border border-red-100 flex justify-center items-center gap-1.5" onclick="window.open('https://ssyoutube.com/watch?v=qOfZADfu5hs', '_blank')">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" /></svg> ดาวน์โหลด
+                    </button>
+                </div>
+            </div>
+            <!-- Video Card -->
+            <div class="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden flex flex-col hover:shadow-lg transition-shadow duration-300 video-card" data-title="ตอนที่ 6: การตัดต่อและประกอบร่าง (คลิปที่ 3/3)">
+                <div class="p-4 border-b border-gray-50 flex-grow">
+                    <h3 class="font-semibold text-gray-800 text-sm md:text-base line-clamp-2 leading-snug" title="ตอนที่ 6: การตัดต่อและประกอบร่าง (คลิปที่ 3/3)">ตอนที่ 6: การตัดต่อและประกอบร่าง (คลิปที่ 3/3)</h3>
+                </div>
+                <div class="relative w-full aspect-video bg-gray-200">
+                    <iframe class="absolute top-0 left-0 w-full h-full" src="https://www.youtube.com/embed/KMpfFB4v7_M" title="ตอนที่ 6: การตัดต่อและประกอบร่าง (คลิปที่ 3/3)" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen loading="lazy"></iframe>
+                </div>
+                <div class="flex justify-between items-center p-3 bg-white border-t border-gray-100 gap-2">
+                    <button class="flex-1 bg-gray-50 hover:bg-gray-100 text-gray-700 text-sm font-medium py-2 px-3 rounded-lg transition-colors border border-gray-200 flex justify-center items-center gap-1.5" onclick="copyYtLink(this, 'KMpfFB4v7_M')">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z" /></svg> คัดลอกลิงก์
+                    </button>
+                    <button class="flex-1 bg-red-50 hover:bg-red-100 text-red-600 text-sm font-medium py-2 px-3 rounded-lg transition-colors border border-red-100 flex justify-center items-center gap-1.5" onclick="window.open('https://ssyoutube.com/watch?v=KMpfFB4v7_M', '_blank')">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" /></svg> ดาวน์โหลด
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts for interactivity -->
+    <script>
+        // ระบบค้นหา
+        function filterVideos() {
+            const searchTerm = document.getElementById('searchInput').value.toLowerCase().trim();
+            const cards = document.querySelectorAll('.video-card');
+            let visibleCount = 0;
+
+            cards.forEach(card => {
+                const title = card.dataset.title;
+                if (title.includes(searchTerm)) {
+                    card.style.display = 'flex';
+                    visibleCount++;
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+
+            document.getElementById('videoCount').textContent = visibleCount;
+            document.getElementById('no-results').style.display = visibleCount === 0 ? 'block' : 'none';
+        }
+
+        // ระบบคัดลอกลิงก์
+        function copyYtLink(btn, videoId) {
+            const ytUrl = 'https://www.youtube.com/watch?v=' + videoId;
+            navigator.clipboard.writeText(ytUrl).then(() => {
+                const originalHtml = btn.innerHTML;
+                btn.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-green-600" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" /></svg> คัดลอกแล้ว!';
+                btn.classList.add('bg-green-50', 'border-green-200', 'text-green-700');
+                
+                setTimeout(() => { 
+                    btn.innerHTML = originalHtml; 
+                    btn.classList.remove('bg-green-50', 'border-green-200', 'text-green-700');
+                }, 2000);
+            });
+        }
+    </script>
+</body>
+</html>
