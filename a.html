@@ -2,89 +2,58 @@
 <html lang="th">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>วิดีโอ: ครึ่งหลัง by A</title>
-  <script src="https://cdn.tailwindcss.com"></script>
+  <title>A-วิดีโอ</title>
+  <!-- Favicon -->
+  <link rel="icon" type="image/png" href="https://img.icons8.com/color/96/rock-music.png">
   <style>
-    /* ซ่อน Scrollbar แนวนอนและเพิ่มความนุ่มนวล */
     body {
-      background: radial-gradient(circle at top, #1e293b, #0f172a);
+      background: #000;
+      color: #fff;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      margin: 0;
+    }
+    video {
+      max-width: 90%;
+      max-height: 80vh;
+    }
+    .controls {
+      margin-top: 15px;
+      display: flex;
+      gap: 10px;
+    }
+    button {
+      padding: 8px 16px;
+      font-size: 16px;
+      cursor: pointer;
     }
   </style>
 </head>
-<body class="min-h-screen text-slate-100 flex flex-col items-center justify-center p-4">
+<body>
 
-  <main class="w-full max-w-4xl bg-slate-900/80 backdrop-blur-md border border-slate-800 rounded-2xl shadow-2xl p-6 sm:p-8">
-    <!-- Header -->
-    <header class="mb-6 flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-slate-800 pb-4">
-      <div>
-        <span class="inline-block px-2.5 py-1 text-xs font-medium bg-blue-500/10 text-blue-400 rounded-full mb-2">Cloudflare R2 Stream</span>
-        <h1 class="text-2xl font-bold tracking-tight text-white flex items-center gap-2">
-          🎬 ครึ่งหลัง by A.mp4
-        </h1>
-      </div>
-      <div id="statusBadge" class="text-xs text-emerald-400 bg-emerald-500/10 border border-emerald-500/20 px-3 py-1.5 rounded-full flex items-center gap-1.5 self-start sm:self-auto">
-        <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
-        พร้อมเล่น
-      </div>
-    </header>
+  <!-- ใส่ URL วิดีโอจริงของคุณใน src -->
+  <video id="myVideo" controls>
+    <source src="https://pub-ea49601f030f4121ad3ed3d018d040cf.r2.dev/%E0%B8%84%E0%B8%A3%E0%B8%B6%E0%B9%88%E0%B8%87%E0%B8%AB%E0%B8%A5%E0%B8%B1%E0%B8%87%20by%20A.mp4">
+  </video>
 
-    <!-- Video Container -->
-    <div class="relative aspect-video w-full rounded-xl overflow-hidden bg-black shadow-inner border border-slate-800">
-      <!-- 
-        สำคัญ: เปลี่ยน 'URL_สาธารณะ_ของไฟล์คลิป' ด้านล่างนี้เป็น URL จริงจาก Cloudflare R2
-        เช่น: https://pub-xxxxxx.r2.dev/%E0%B8%84%E0%B8%A3%E0%B8%B8%E0%B9%88%E0%B8%87%E0%B8%AB%E0%B8%A5%E0%B8%B1%E0%B8%87%20by%20A.mp4
-      -->
-      <video
-        id="mainPlayer"
-        class="w-full h-full object-contain"
-        controls
-        preload="metadata"
-        playsinline
-        src="https://pub-ea49601f030f4121ad3ed3d018d040cf.r2.dev/%E0%B8%84%E0%B8%A3%E0%B8%B6%E0%B9%88%E0%B8%87%E0%B8%AB%E0%B8%A5%E0%B8%B1%E0%B8%87%20by%20A.mp4"
-      >
-        เบราว์เซอร์ของคุณไม่รองรับการเล่นแท็กวิดีโอ HTML5
-      </video>
-    </div>
-
-    <!-- Video Controls Helpers -->
-    <div class="mt-6 flex flex-wrap items-center justify-between gap-4 text-sm text-slate-400">
-      <div class="flex items-center gap-2">
-        <span>ความเร็ว:</span>
-        <button onclick="setSpeed(1)" class="px-2.5 py-1 rounded bg-slate-800 hover:bg-slate-700 text-xs font-semibold text-white transition">1x</button>
-        <button onclick="setSpeed(1.25)" class="px-2.5 py-1 rounded bg-slate-800 hover:bg-slate-700 text-xs font-semibold text-white transition">1.25x</button>
-        <button onclick="setSpeed(1.5)" class="px-2.5 py-1 rounded bg-slate-800 hover:bg-slate-700 text-xs font-semibold text-white transition">1.5x</button>
-        <button onclick="setSpeed(2)" class="px-2.5 py-1 rounded bg-slate-800 hover:bg-slate-700 text-xs font-semibold text-white transition">2x</button>
-      </div>
-
-      <div class="flex items-center gap-3">
-        <button onclick="seekRel(-10)" class="flex items-center gap-1 hover:text-white transition">
-          ⏪ ย้อน 10 วิ
-        </button>
-        <button onclick="seekRel(10)" class="flex items-center gap-1 hover:text-white transition">
-          ⏩ ข้าม 10 วิ
-        </button>
-      </div>
-    </div>
-  </main>
+  <!-- ปุ่มตามที่สั่ง: วนซ้ำ และ ย้อน 10 วิ ไว้ด้านซ้าย -->
+  <div class="controls">
+    <button onclick="document.getElementById('myVideo').currentTime -= 10">ย้อน 10 วิ</button>
+    <button id="loopBtn" onclick="toggleLoop()">วนซ้ำ: ปิด</button>
+  </div>
 
   <script>
-    const player = document.getElementById('mainPlayer');
+    const vid = document.getElementById('myVideo');
+    const loopBtn = document.getElementById('loopBtn');
 
-    function setSpeed(rate) {
-      player.playbackRate = rate;
+    function toggleLoop() {
+      vid.loop = !vid.loop;
+      loopBtn.innerText = vid.loop ? "วนซ้ำ: เปิด" : "วนซ้ำ: ปิด";
     }
-
-    function seekRel(seconds) {
-      player.currentTime = Math.max(0, player.currentTime + seconds);
-    }
-
-    // แจ้งเตือนกรณีลืมแก้ URL
-    player.addEventListener('error', () => {
-      const badge = document.getElementById('statusBadge');
-      badge.textContent = 'กรุณาใส่ Public URL ในโค้ด';
-      badge.className = 'text-xs text-amber-400 bg-amber-500/10 border border-amber-500/20 px-3 py-1.5 rounded-full flex items-center gap-1.5';
-    });
   </script>
+
 </body>
 </html>
